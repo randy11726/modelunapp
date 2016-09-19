@@ -3,11 +3,12 @@ Register = React.createClass({
 onSubmit(e){
     
     e.preventDefault();
-    var ele = $(e.target);
     
-    var email = ele.find("#email").val();
-    var password = ele.find("#password").val();
-    var confirmPassword = ele.find("#confirmPassword").val();
+    var email = this.refs.email.getDOMNode().value;
+    var password = this.refs.password.getDOMNode().value;
+    var confirmPassword = this.refs.confirmPassword.getDOMNode().value;
+    
+    
     if (confirmPassword == password && confirmPassword != "" && password != ""){ //can be made more robust 
         var accountInfo = {
             email: email,
@@ -46,19 +47,19 @@ render() {
     <form onSubmit = {this.onSubmit} className="col offset-s4 s4">
       <div className="row">  
         <div className="input-field col s12">
-          <input id="email" type="text" className="validate" />
+          <input id="email" ref= "email" type="email" className="validate" />
           <label htmlFor="email">Email</label>
         </div>
       </div>
       <div className="row">  
         <div className="input-field col s12">
-          <input id="password" type="password" className="validate" />
+          <input id="password" ref= "password" type="password" className="validate" />
           <label htmlFor="password">Password</label>
         </div>
       </div>
       <div className="row">  
         <div className="input-field col s12">
-          <input id="confirmPassword" type="password" className="validate" />
+          <input id="confirmPassword" ref= "confirmPassword" type="password" className="validate" />
           <label htmlFor="confirmPassword">Confirm Password</label>
         </div>
       </div>

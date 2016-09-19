@@ -1,10 +1,9 @@
 Home = React.createClass({
   render() {
     return (
-      <div>
-        <h1>Welcome to the Model U.N. Moderator System!</h1>
-
-    
+      <div className="center">
+        <h2>Model United Nations Web App</h2>
+        <img src="/images/unitednations.png" alt="model un pic" style={{width: 650, height: 404}} />
       </div>
     );
   }

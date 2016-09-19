@@ -1,4 +1,4 @@
-Login = React.createClass({
+createCommittee = React.createClass({
     
     onSubmit(e) {
         
@@ -8,19 +8,6 @@ Login = React.createClass({
         var password = this.refs.password.getDOMNode().value;
         
         
-        //Login user 
-        Meteor.loginWithPassword(email, password, function(er){
-            if (er){
-                Materialize.toast(er.reason, 4000);
-            }
-            else{
-            
-                //Redirect to admin or page after logging in  
-                FlowRouter.go('/')
-                   
-            }
-            
-        });
         
     },    
     
