@@ -47,7 +47,7 @@ render() {
     <form onSubmit = {this.onSubmit} className="col offset-s4 s4">
       <div className="row">  
         <div className="input-field col s12">
-          <input id="email" ref= "email" type="email" className="validate" />
+          <input id="email" ref= "email" type="email" className="validate" /> 
           <label htmlFor="email">Email</label>
         </div>
       </div>
