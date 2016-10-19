@@ -1,5 +1,14 @@
 
+
+Committee = new Mongo.Collection("committee");
+
+
 Browse = React.createClass({
+    
+    listC(){  // list of committe form data entries in DB 
+        
+        return Committee.find().fetch();
+    },
     
     onSubmit(e){
         
@@ -18,10 +27,46 @@ Browse = React.createClass({
 
          },
     
+    addCommittee(event){
+            
+            event.preventDefault(); 
+            //console.log(this); 
+            
+            var cName = document.getElementById("committee_name").value;
+            var cChair = document.getElementById("chair_name").value;
+            var cAddress = document.getElementById("address").value;
+            var cTopic = document.getElementById("topicArea").value;
+            var cDate = document.getElementById("startDate").value;
+            //var cCountry = document.getElementById("countySelect").querySelector("option[selected]").value;
+            var countriesList = $('#countrySelect').val();
+            console.log(cName, cChair, cAddress, cTopic, cDate); 
+            //console.log(cCountry);
+            //
+           Committee.insert({
+               
+                comName: cName,
+                comChair: cChair,
+                comAddress: cAddress,
+                comTopic: cTopic,
+                comDate: cDate,
+                comCountries: countriesList,
+                complete: false,
+                createdAt: new Date()
+                
+                
+            });
+            $("#createCommitteeForm")[0].reset(); // clears form after submission!! 
 
+              
+        },
     
     render() {
         
+        console.log(this.listC());
+        let comC = this.listC();
+        if (comC.length < 1){
+            return (<div> Loading Committees</div>)
+        }
     
         return (
             
@@ -31,57 +76,55 @@ Browse = React.createClass({
                 <h4 className="text-center">Please select one of the following...</h4> 
                     <br>
                     </br> 
-               <div>       
-            <div className="chips"></div>
-                  <div className="chips chips-initial"></div>
-                  <div className="chips chips-placeholder"></div>
-              </div> 
               <div id="modal1" className="modal modal-fixed-footer">
                 <div className="modal-content">
                   <h4 className="text-center">Form to Create Committee</h4>
                   <div className="row">
-                    <form className="col s12">
+                    <form id="createCommitteeForm"  onSubmit = {this.addCommittee.bind(this)} className="col s12">
                       <div className="row">
                         <div className="input-field col s6">
-                          <input id="first_name" type="text" className="validate"/>
-                          <label for="first_name">Committee Name</label>
+                          <input id="committee_name" name="committee_name" type="text" className="validate"/>
+                          <label for="comittee_name">Committee Name</label>
                         </div>
                         <div className="input-field col s6">
-                          <input id="first_name" type="text" className="validate"/>
-                          <label for="first_name">Committee Chair</label>
+                          <input id="chair_name" ref="chair_name" type="text" className="validate"/>
+                          <label for="chair_name">Committee Chair</label>
                         </div>
                       </div>
                       <div className="row">
                         <div className="input-field col s8">
-                          <input id="address" type="text" className="validate"/>
+                          <input id="address" ref="address" type="text" className="validate"/>
                           <label for="address">Address</label>
                         </div>
                       <div className="input-field col s4">
-                        <select multiple>
+                        <select multiple id="countrySelect" ref="countrySelect">
                           <option value="" disabled selected>Countries</option>
-                          <option value="1">USA </option>
-                          <option value="2">Japan</option>
-                          <option value="3">Canada</option>
+                          <option value="USA">USA </option>
+                          <option value="Japan">Japan</option>
+                          <option value="Canada">Canada</option>
                         </select>
-                        <label>Select Participating Countries</label>
+                        <label for="countrySelect">Select Participating Countries</label>
                        </div>
                       </div>
                       <div className="row">
                         <div className="input-field col s8">
-                            <textarea placeholder="Max Characters: 500" id="textarea1" className="materialize-textarea" maxLength="500" ></textarea>
-                            <label for="textarea1">Topic</label>
+                            <textarea placeholder="Max Characters: 500"  ref= "topicArea" id="topicArea" className="materialize-textarea" maxLength="500" ></textarea>
+                            <label for="topicArea">Topic</label>
                         </div>
                         <div className="input-field col s4">
-                            <input id="startDate" type="date" className="datepicker"/>
+                            <input id="startDate" ref="startDate" type="date" className="datepicker"/>
                             <label for="startDate">Select Date</label>
                         </div>
+                          <button className="modal-action modal-close btn waves-effect waves-light" type="submit" name="action">Submit
+                            <i className="material-icons right">send</i>
+                          </button>
                       </div>   
-                      
                     </form>
                   </div>
                 </div>
-                <div className="modal-footer">
-                  <a href="#!" className=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+                <div className="modal-footer display-inline">
+            {/*<div> <a href="#!" className=" modal-action modal-close waves-effect waves-light btn"> Close</a> </div> */}
+                  <button className="modal-action modal-close btn waves-effect waves-light">Close </button>
                 </div>
               </div>
             
@@ -101,11 +144,22 @@ Browse = React.createClass({
             
             
             <div className="row">
-                    <form onSubmit = {this.onSubmit} className="col offset-s4 s4">
+                    <form className="col offset-s4 s4">
                     <div className="row">      
-                        <button className="waves-effect waves-light btn btn-block">Join a Committee</button>
+                        <a href="/join"><button className="waves-effect waves-light btn btn-block">Join a Committee</button> </a>
                 </div>        
                 </form>
+            </div>
+            <div> 
+                
+                
+                    {this.listC().map( (resolution) => {  // this is how to iterate committe db and print all name
+                     
+                        return <ul> {resolution.comName} </ul>
+                    })}
+                
+            
+                            
             </div>
           </div>
         );
