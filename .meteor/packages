@@ -19,7 +19,6 @@ mongo
 blaze-html-templates
 session
 jquery
-tracker
 logging
 reload
 random
@@ -29,3 +28,9 @@ check
 ecmascript
 materialize:materialize
 fourseven:scss
+autopublish
+insecure
+meteortoys:allthings
+
+tracker
+fortawesome:fontawesome

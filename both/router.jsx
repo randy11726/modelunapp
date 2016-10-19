@@ -11,6 +11,7 @@ Reaktor.init(
     <Route path="/changepassword" content={ChangePassword} layout={MainLayout} triggersEnter={isNotLoggedIn} />
     <Route path="/dashboard" content={Dashboard} layout={MainLayout} triggersEnter={isNotLoggedIn} />
     <Route path="/browse" content={Browse} layout={MainLayout} triggersEnter={isNotLoggedIn} />
+    <Route path="/join" content={Join} layout={MainLayout} triggersEnter={isNotLoggedIn} />
     
   </Router>
 );

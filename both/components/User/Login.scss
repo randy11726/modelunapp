@@ -10,3 +10,28 @@
 }
 
 
+.input-field input[type=search]:focus {
+    
+    display: block;
+    line-height: inherit;
+    padding-left: 4rem;
+    width: calc(100% - 4rem);
+    background-color: transparent;
+}
+
+.input-field input[type=search] {
+    margin-top:150px;
+    display: block;
+    line-height: inherit;
+    padding-left: 4rem;
+    width: calc(100% - 4rem);
+    font-size: 36px;
+    font-family: Arial;
+}
+
+::-webkit-input-placeholder {
+    color: black;
+    font-size: 36px;
+    font-family: Arial;
+   
+}

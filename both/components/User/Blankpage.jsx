@@ -1,4 +1,4 @@
-Dashboard = React.createClass({
+Blankpage = React.createClass({
     
     onSubmit(e){
         
@@ -14,7 +14,7 @@ Dashboard = React.createClass({
     
         return (
             <div>
-            <h1> will be dashboard </h1> 
+            <h1> Nothing here  yet ;) </h1> 
             </div>
         );
     
