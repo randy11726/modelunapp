@@ -19,7 +19,7 @@ Reaktor.init(
 //checks if user is logged in 
 function isLoggedIn(context, doRedirect) {
 	if(User.isLoggedIn()) {
-        //console.log("is logged in");
+        console.log("is logged in");
 		doRedirect('/');
 	}
 }
