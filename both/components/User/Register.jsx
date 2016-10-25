@@ -12,7 +12,8 @@ onSubmit(e){
     if (confirmPassword == password && confirmPassword != "" && password != ""){ //can be made more robust 
         var accountInfo = {
             email: email,
-            password: password
+            password: password,
+            
             
         };
         Accounts.createUser(accountInfo, function(er){
