@@ -48,15 +48,15 @@ Join = React.createClass({
               </thead>
 
               <tbody>
-            {comC.map( (album) => {
+            {comC.map( (committee) => {
               return (
 
 
 
 
                     <tr>
-                      <td> {album.comName} </td>
-                      <td>{album.comTopic}</td>
+                      <td> {committee.comName} </td>
+                      <td>{committee.comTopic}</td>
                       <td><a className="btn-floating btn waves-effect waves-light blue"><i className="material-icons">info</i></a></td>
                     </tr>
 

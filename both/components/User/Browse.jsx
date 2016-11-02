@@ -5,7 +5,7 @@ Committee = new Mongo.Collection("committee");
 
 Meteor.users.allow({
   update: function(userId, user) {
-    return true; 
+    return true;
 
     /**
      * Don't use `return true` in production!
@@ -14,7 +14,7 @@ Meteor.users.allow({
      */
   },
     insert: function(userId, user) {
-    return true; 
+    return true;
 
     /**
      * Don't use `return true` in production!
@@ -22,31 +22,31 @@ Meteor.users.allow({
      * return Meteor.users.findOne(userId).profile.isAdmin;
      */
     }
-  
+
 });
 
-Meteor.users.insert({ 
+/*Meteor.users.insert({
                 id: this.userId,
                 addCommitteeArrray: []
-                                 
-            }); 
+
+            });*/
 
 
 Browse = React.createClass({
-    
-    listC(){  // list of committe form data entries in DB 
-        
+
+    listC(){  // list of committe form data entries in DB
+
         return Committee.find().fetch();
     },
-    
+
     onSubmit(e){
-        
+
         e.preventDefault();
         FlowRouter.go('/');
 
-            
+
         },
-    componentDidMount() { 
+    componentDidMount() {
         $('select').material_select();
         $('.modal-trigger').leanModal();
         $('.datepicker').pickadate({
@@ -55,12 +55,12 @@ Browse = React.createClass({
         });
 
          },
-    
+
     addCommittee(event){
-            
-            event.preventDefault(); 
-            //console.log(this); 
-            
+
+            event.preventDefault();
+            //console.log(this);
+
             var cName = document.getElementById("committee_name").value;
             var cChair = document.getElementById("chair_name").value;
             var cAddress = document.getElementById("address").value;
@@ -68,14 +68,14 @@ Browse = React.createClass({
             var cDate = document.getElementById("startDate").value;
             //var cCountry = document.getElementById("countySelect").querySelector("option[selected]").value;
             var countriesList = $('#countrySelect').val();
-            console.log(cName, cChair, cAddress, cTopic, cDate); 
+            console.log(cName, cChair, cAddress, cTopic, cDate);
             //console.log(cCountry);
             //
-            var currentUser = Meteor.userId(); 
+            var currentUser = Meteor.userId();
 
-        
+
             var addCommittee = Committee.insert({
-               
+
                 comName: cName,
                 comChair: cChair,
                 comAddress: cAddress,
@@ -84,46 +84,46 @@ Browse = React.createClass({
                 comCountries: countriesList,
                 complete: false,
                 createdAt: new Date()
-                
-                
+
+
             });
-            
+
             Meteor.users.update(currentUser, { $addToSet: { addCommitteeArray: addCommittee }});
-            // this update adds the unique object id  of each committee they created/own to the specific user's collection 
-        
-        
-            /*Meteor.users.insert({ 
+            // this update adds the unique object id  of each committee they created/own to the specific user's collection
+
+
+            /*Meteor.users.insert({
                 _id: currentUser,
-                addCommittee: addCommittee, 
+                addCommittee: addCommittee,
                 complete:false,
                 createdAt: new Date()
-                                 
-            }); */ 
 
-            
-           
+            }); */
+
+
+
             console.log(Meteor.userId());
-            $("#createCommitteeForm")[0].reset(); // clears form after submission!! 
+            $("#createCommitteeForm")[0].reset(); // clears form after submission!!
 
-              
+
         },
-    
+
     render() {
-        
+
         console.log(this.listC());
         let comC = this.listC();
         if (comC.length < 1){
             return (<div> Loading Committees</div>)
         }
-    
+
         return (
-            
-            
+
+
             <div>
             <div className="row">
-                <h4 className="text-center">Please select one of the following...</h4> 
+                <h4 className="text-center">Please select one of the following...</h4>
                     <br>
-                    </br> 
+                    </br>
               <div id="modal1" className="modal modal-fixed-footer">
                 <div className="modal-content">
                   <h4 className="text-center">Form to Create Committee</h4>
@@ -411,7 +411,7 @@ Browse = React.createClass({
                           <button className="modal-action modal-close btn waves-effect waves-light" type="submit" name="action">Submit
                             <i className="material-icons right">send</i>
                           </button>
-                      </div>   
+                      </div>
                     </form>
                   </div>
                 </div>
@@ -420,46 +420,46 @@ Browse = React.createClass({
                   <button className="modal-action modal-close btn waves-effect waves-light">Close </button>
                 </div>
               </div>
-            
-            
-                
-            
+
+
+
+
                     <form onSubmit = {this.onSubmit} className="col offset-s4 s4">
-                    <div className="row">      
+                    <div className="row">
                         <a className="waves-effect waves-light btn btn-block modal-trigger" href="#modal1">Create a Committee</a>
-                 
-                    </div>        
+
+                    </div>
                     </form>
                 </div>
 
-            
-            
-            
-            
+
+
+
+
             <div className="row">
                     <form className="col offset-s4 s4">
-                    <div className="row">      
+                    <div className="row">
                         <a href="/join"><button className="waves-effect waves-light btn btn-block">Join a Committee</button> </a>
-                </div>        
+                </div>
                 </form>
             </div>
-            <div> 
-                
-                
+            <div>
+
+
                     {/*this.listC().map( (resolution) => {  // this is how to iterate committe db and print all name
-                     
+
                         return <ul> {resolution.comName} </ul>
                     })*/}
-                
-            
-                            
+
+
+
             </div>
           </div>
         );
-    
-    
+
+
     }
-    
-    
-    
+
+
+
 });
