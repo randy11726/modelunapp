@@ -9,12 +9,20 @@
     text-align: center;
 }
 
-.modal { 
-   background-color: lightgray !important; 
+.modal {
+   background-color: lightgray !important;
+}
+
+.tableHeader{
+
+  font-size: 22px;
+  font-family: Arial;
+
+
 }
 
 .input-field input[type=search]:focus {
-    
+
     display: block;
     line-height: inherit;
     padding-left: 4rem;
@@ -36,6 +44,5 @@
     color: black;
     font-size: 36px;
     font-family: Arial;
-   
-}
 
+}
