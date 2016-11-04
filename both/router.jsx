@@ -12,18 +12,18 @@ Reaktor.init(
     <Route path="/dashboard" content={Dashboard} layout={MainLayout} triggersEnter={isNotLoggedIn} />
     <Route path="/browse" content={Browse} layout={MainLayout} triggersEnter={isNotLoggedIn} />
     <Route path="/join" content={Join} layout={MainLayout} triggersEnter={isNotLoggedIn} />
-    
+
   </Router>
 );
 
-//checks if user is logged in 
+//checks if user is logged in
 function isLoggedIn(context, doRedirect) {
 	if(User.isLoggedIn()) {
         console.log("is logged in");
 		doRedirect('/');
 	}
 }
-// checks if user is not logged in 
+// checks if user is not logged in
 function isNotLoggedIn(context, doRedirect) {
 	if(!User.isLoggedIn()) {
         //console.log("is logged in");
