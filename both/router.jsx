@@ -16,6 +16,8 @@ Reaktor.init(
   </Router>
 );
 
+
+
 //checks if user is logged in
 function isLoggedIn(context, doRedirect) {
 	if(User.isLoggedIn()) {

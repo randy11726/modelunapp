@@ -1,5 +1,27 @@
 
 
+Meteor.users.allow({
+  update: function(userId, user) {
+    return true;
+
+    /**
+     * Don't use `return true` in production!
+     * You probably need something like this:
+     * return Meteor.users.findOne(userId).profile.isAdmin;
+     */
+  },
+    insert: function(userId, user) {
+    return true;
+
+    /**
+     * Don't use `return true` in production!
+     * You probably need something like this:
+     * return Meteor.users.findOne(userId).profile.isAdmin;
+     */
+    }
+
+});
+
 Join = React.createClass({
 
     listC(){  // list of committe form data entries in DB
@@ -20,13 +42,29 @@ Join = React.createClass({
 
 
 
+
+
          },
 
-    prom(event){
+    joinCommittee(event){
 
-        //event.preventDefault();
 
-        console.log(event);// prints id !!!!!!!!!! of committee on the row the button was on 
+
+
+        var currentUser = Meteor.userId();
+
+
+
+        Meteor.users.update(currentUser, { $addToSet: { joinCommittee: event }});
+        // this update adds the unique object id  of each committee they created/own to the specific user's collection
+        // by default doesnt let u add same committee to joined Array field which was awesome
+        document.getElementById(event).disabled = true;
+
+
+        //$("#jNdvf6JWk29TQdYfe").prop('disabled', true);
+        console.log(Meteor.userId());
+
+        console.log(event);// prints id !!!!!!!!!! of committee on the row the button was on
         //console.log(target.id);
          },
 
@@ -40,12 +78,6 @@ Join = React.createClass({
             return (<div> Loading Committees</div>)
         }
 
-        function prom2(event){
-
-            event.preventDefault();
-
-            console.log("crybaby");
-             }
 
 
 
@@ -126,7 +158,7 @@ Join = React.createClass({
                       <td>{comCountriesClean}</td>
                       <td>
 
-                        <button id={committee._id} key={committee._id} className="waves-effect waves-light btn btn-block" onClick={this.prom.bind(this, committee._id)} >Join</button>
+                        <button id={committee._id} key={committee._id} className="waves-effect waves-light btn btn-block" onClick={this.joinCommittee.bind(this, committee._id)} >Join</button>
 
 
                       </td>
@@ -142,23 +174,7 @@ Join = React.createClass({
          </table>
 
 
-        {/*<table className="bordered">
-        <thead>
-          <tr>
-              <th data-field="id">Committee Name</th>
-              <th data-field="name">Topic</th>
-              <th data-field="price">Details</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <tr>
-            {comC.forEach( (album) => {
-              return (<div> {album.comName} </div>)
-             })}
-          </tr>
-        </tbody>
-      </table> */}
           {/*<tr>
             <td>{comC[0].comName} </td>
             <td>save bears that are on melting ice caps</td>

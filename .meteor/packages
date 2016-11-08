@@ -28,9 +28,9 @@ check
 ecmascript
 materialize:materialize
 fourseven:scss
-autopublish
 insecure
 meteortoys:allthings
 tracker
 fortawesome:fontawesome
 accounts-base
+autopublish
