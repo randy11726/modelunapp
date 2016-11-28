@@ -30,7 +30,9 @@ materialize:materialize
 fourseven:scss
 insecure
 meteortoys:allthings
-tracker
 fortawesome:fontawesome
 accounts-base
 autopublish
+tracker
+sml0820:meteor-timecircles
+brentjanderson:buzz

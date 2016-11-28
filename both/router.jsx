@@ -12,6 +12,7 @@ Reaktor.init(
     <Route path="/dashboard" content={Dashboard} layout={MainLayout} triggersEnter={isNotLoggedIn} />
     <Route path="/browse" content={Browse} layout={MainLayout} triggersEnter={isNotLoggedIn} />
     <Route path="/join" content={Join} layout={MainLayout} triggersEnter={isNotLoggedIn} />
+    <Route path="/timer" content={Timer} layout={MainLayout} triggersEnter={isNotLoggedIn} />
 
   </Router>
 );
@@ -32,6 +33,12 @@ function isNotLoggedIn(context, doRedirect) {
 		doRedirect('/');
 	}
 }
+
+FlowRouter.subscriptions = function() {
+  this.register('Committee', Meteor.subscribe('comittee'));
+};
+
+
 
 // Reaktor doensn't have a notFound component yet
 FlowRouter.notFound = {
