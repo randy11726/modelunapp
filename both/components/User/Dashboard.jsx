@@ -30,6 +30,34 @@ Dashboard = React.createClass({
         return Committee.find().fetch();
     },
 
+    listD(){
+      var newobject = {};
+      var currentUser = Meteor.userId();
+      console.log(currentUser);
+      var poop = Meteor.users.find({_id: currentUser}, {_id: 0, emails: 1}).fetch();
+      console.log(poop);
+
+
+      var printme = poop[0].joinCommittee;
+      var a = new Array();
+      console.log(printme);
+      //var hel = Committee.find( { _id: "jNdvf6JWk29TQdYfe" } ).fetch();
+      for (i = 0; i < printme.length; i++) {
+
+          newobject = Committee.find( { _id: printme[i] } ).fetch();
+          a.push(newobject);
+          console.log(a[i])
+          //var animal = a[i][0].comName;
+          //console.log(animal);
+      }
+      console.log(a);
+
+      console.log("Array of Everything is Above Me");
+      //return Meteor.users.find({_id: currentUser}, {_id: 0, emails: 1}).fetch();
+      return a;
+    },
+
+
     onSubmit(e){
 
         e.preventDefault();
@@ -40,7 +68,7 @@ Dashboard = React.createClass({
 
     goTimer(e){
 
-      
+
         FlowRouter.go('/timer');
 
 
@@ -53,21 +81,9 @@ Dashboard = React.createClass({
       let candy = Committee.find().fetch(); //Meteor.users.findOne(currentUser);
       //console.log("Topic is this " + candy[0].comTopic); // change return candy to current user for id
       //var email = Committee.find({ _id: currentUser });
-      //var email = Meteor.users.find({_id: currentUser}, {'_id': 0, 'emails.address': 1}).fetch();
-      var name = candy[0].comChair;
-
-
-
-
-      console.log(name);
-      return <h4>{name}</h4>
-    },
-
-    done(){
-      //var comSet = this.listC();
-      var can = this.forceUpdate();
-      //return <p> comSet[0].comChair</p>
-      return can
+      var email = Meteor.users.find({_id: currentUser}, {'_id': 0, 'emails.address': 1}).fetch();
+      var emailAddr = email[0].emails[0].address
+      return <h4>{emailAddr}</h4>
     },
 
 
@@ -80,8 +96,10 @@ Dashboard = React.createClass({
 
 
       console.log(this.listC());
+      let comD = this.listD();
       let comC = this.listC();
-      if (comC.length < 1){
+      if (comC.length < 1 || comD.length < 1){
+          console.log("loading committes");
           return (<div> Loading Committees</div>)
       }
 
@@ -131,16 +149,16 @@ Dashboard = React.createClass({
                   <th data-field="name1">Topic</th>
                   <th data-field="name2">Address</th>
                   <th data-field="name3">Chair</th>
-                  <th data-field="name4">Date</th>
+                  <th data-field="name4">Dates23s</th>
                   <th data-field="name5">Countires</th>
                   <th data-field="price">Details</th>
               </tr>
             </thead>
 
             <tbody>
-          {comC.map( (committee) => {
-            //console.log(committee.comCountries);
-            var comCountriesClean = committee.comCountries.join(', '); // used to add spacing and commas between countries array
+          {comD.map( (committee) => {
+            //console.log(committee[0].comCountries);
+            var comCountriesClean = committee[0].comCountries.join(', '); // used to add spacing and commas between countries array
 
             var self = this;
 
@@ -151,15 +169,15 @@ Dashboard = React.createClass({
 
                   <div>
                   <tr>
-                    <td> {committee.comName} </td>
-                    <td>{committee.comTopic}</td>
-                    <td> {committee.comAddress} </td>
-                    <td>{committee.comChair}</td>
-                    <td> {committee.comDate} </td>
+                    <td> {committee[0].comName} </td>
+                    <td>{committee[0].comTopic}</td>
+                    <td> {committee[0].comAddress} </td>
+                    <td>{committee[0].comChair}</td>
+                    <td> {committee[0].comDate} </td>
                     <td>{comCountriesClean}</td>
                     <td>
 
-                      <button id={committee._id} key={committee._id} className="waves-effect waves-light btn btn-block" onClick={this.goTimer.bind(this,event)} >START</button>
+                      <button id={committee[0]._id} key={committee[0]._id} className="waves-effect waves-light btn btn-block" onClick={this.goTimer.bind(this,event)} >START</button>
 
 
                     </td>

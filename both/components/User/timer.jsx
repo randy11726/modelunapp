@@ -15,11 +15,15 @@ Timer = React.createClass({
         console.log("clicked start");
         console.log(event);
          },
-   editTimer(){
-
-
-
-       //console.log(time);
+   editTimer(e){
+       e.preventDefault();
+       var newTime =$("#selectTime").val();
+       $("#DateCountdown").data('timer', newTime);
+       $("#DateCountdown").TimeCircles().restart();
+       $("#DateCountdown").TimeCircles().stop();
+       console.log(newTime);
+       console.log("clicked edit");
+       //tick.stop();
         },
 
     componentDidMount() {
@@ -32,37 +36,37 @@ Timer = React.createClass({
       var stop = false;
       $("#startbutton").click(function(){
           $("#DateCountdown").TimeCircles().start();
-          tick.play();
-          tick.loop();
+          //tick.play();
+          //tick.loop();
           stop = false;
       });
       $("#stopbutton").click(function(){
           $("#DateCountdown").TimeCircles().stop();
-          tick.stop();
+          //tick.stop();
           stop = true;
       });
       $("#restartbutton").click(function(){
           $("#DateCountdown").TimeCircles().restart();
-          tick.play();
-          tick.loop();
+          //tick.play();
+          //tick.loop();
           stop = false;
       });
       $("#morebutton").click(function(){
           var timer = 60;
           $("#DateCountdown").data('timer', timer);
           $("#DateCountdown").TimeCircles().restart();
-          tick.play();
-          tick.loop();
+          //tick.play();
+          //tick.loop();
       });
-      $("#editButton").click(function(){
+      /*$("#editButton").click(function(){
           var newTime =$("#selectTime").val();
           $("#DateCountdown").data('timer', newTime);
           $("#DateCountdown").TimeCircles().restart();
           $("#DateCountdown").TimeCircles().stop();
           console.log(newTime);
           console.log("clicked edit")
-          tick.stop();
-      });
+          //tick.stop();
+      });*/
       $("#DateCountdown").TimeCircles({
           "start": false,
           "animation": "smooth",
@@ -94,7 +98,7 @@ Timer = React.createClass({
           }
       }).addListener(function()
       { //if ($("#DateCountdown").TimeCircles().getTime() > 1) { tick.play(); }
-        if ($("#DateCountdown").TimeCircles().getTime() < 1) { alarm.play(); tick.stop();}
+        if ($("#DateCountdown").TimeCircles().getTime() < 1) { alarm.play();}
 
       } );
 
@@ -136,7 +140,7 @@ Timer = React.createClass({
               <br>
                   <br> </br>
               </br>
-          
+
 
 
 
@@ -154,7 +158,7 @@ Timer = React.createClass({
                     <label>Choose Timer Countdown</label>
                   </div>
                   <div className="input-field col s6">
-                    <button id="editButton" className="waves-effect waves-light btn-large"> Update Timer</button>
+                    <button id="editButton" className="waves-effect waves-light btn-large" onClick={this.editTimer.bind(this)}> Update Timer</button>
                     <br>
                         <br> </br>
                     </br>
